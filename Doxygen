@@ -1,0 +1,4 @@
+PROJECT_NAME = Parallel-Prim-Algorithm
+OUTPUT_DIRECTORY = docs
+INPUT = include
+RECURSIVE = yes

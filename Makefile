@@ -1,12 +1,8 @@
 ####################################################
-#												   #
-# Author: Lucas Fonseca dos Santos.                #
-# Author: Bruno Lucinda Ribeiro.    	           #
-# Author: Igor Nunes.				               #
-#												   #
-####################################################
 # 												   #
 # FEDERAL UNIVERSITY OF LAVRAS					   #
+# ALGORITHMS IN GRAPH DISCIPLINE				   #
+# TOUR GUIDE PROBLEM PRATICAL PROJECT			   #
 # 												   #
 # SOURCE CODE LANGUAGE: C++						   #
 # A makefile written for compile all C++ source	   #
