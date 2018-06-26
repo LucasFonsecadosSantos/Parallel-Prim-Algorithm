@@ -1,0 +1,14 @@
+
+::EDGES::
+K F 10
+F E 11
+T J 5
+K J 3
+
+::VERTEXES::
+K
+F
+S
+E
+T
+J

@@ -14,5 +14,6 @@ int main(int argc, char *argv[]) {
 
 	checkParams(argc);
 	Parser *parser = new Parser(new FileHandler(argv[1]));
+	Graph *graph = new Graph(parser->getVertexSet(), parser->getEdgeSet());
 	return 0;
 }

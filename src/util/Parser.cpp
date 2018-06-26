@@ -72,7 +72,7 @@ void Parser::populatesSet() {
     }
 }
 
-std::string * Parser::getTokens(std::string line) {
+std::string* Parser::getTokens(std::string line) {
     int i=0;
     int tokenCounter = 0;
     int sizeLine = line.length();
@@ -90,4 +90,12 @@ std::string * Parser::getTokens(std::string line) {
     }
     tokens[tokenCounter] = tmpString;
     return tokens;
+}
+
+std::vector<std::string*>* Parser::getEdgeSet() {
+    return this->edgeSet;
+}
+
+std::vector<std::string>* Parser::getVertexSet() {
+    return this->vertexSet;
 }
