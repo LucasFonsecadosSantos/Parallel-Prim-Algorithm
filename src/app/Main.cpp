@@ -13,6 +13,6 @@ void checkParams(int paramAmount) {
 int main(int argc, char *argv[]) {
 
 	checkParams(argc);
-
+	Parser *parser = new Parser(new FileHandler(argv[1]));
 	return 0;
 }

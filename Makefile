@@ -19,10 +19,10 @@ build:
 	mkdir -p build
 
 build/main: $(OBJECT_FILES)
-	g++ -g $^ -o $@
+	g++ -g $^ -std=c++11 -o $@
 
 %.o: %.cpp
-	g++ -g -c $^ -o $@
+	g++ -g -std=c++11 -c $^ -o $@
 
 clean_objects: $(OBJECT_FILES)
 	rm $^

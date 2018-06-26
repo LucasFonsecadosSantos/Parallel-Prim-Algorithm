@@ -3,6 +3,7 @@
 
 #include <stack>
 #include <string>
+#include <fstream>
 
 class FileHandler {
 	
@@ -10,10 +11,12 @@ class FileHandler {
 		FileHandler(const char* fileName);
 		~FileHandler();
         std::string readLine();
-        inline bool hasLine();
+        bool hasLine();
 
 	private:
-        std::stack<std::string> buffer;
+        std::stack<std::string> *buffer;
+        void readFile(const char* fileName);
+        std::fstream inputFile;
 
 };
 
