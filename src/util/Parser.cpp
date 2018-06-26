@@ -47,23 +47,27 @@ void Parser::populatesSet() {
     std::string line = "";
     while (this->fileHandler->hasLine()) {
         line = this->fileHandler->readLine();
-        if (line.at(0) == ':' && line.at(1) == ':') {
-            if (line == this->reservedWords[0]) {
-                this->vertexFlag = true;
-                this->edgeFlag = false;
-            } else if (line == this->reservedWords[1]) {
-                this->edgeFlag = true;
-                this->vertexFlag = false;
+        if (lexemeValidator(line)) {
+            if (line.at(0) == ':' && line.at(1) == ':') {
+                if (line == this->reservedWords[0]) {
+                    this->vertexFlag = true;
+                    this->edgeFlag = false;
+                } else if (line == this->reservedWords[1]) {
+                    this->edgeFlag = true;
+                    this->vertexFlag = false;
+                }
+            } else {
+                if (this->vertexFlag) {
+                    this->vertexSet->push_back(line);
+                } else {
+                    std::string *tokens = new std::string[3];
+                    tokens = getTokens(line);
+                    std::cout << tokens[0] << tokens[1] << tokens[2] << std::endl;
+                    this->edgeSet->push_back(tokens);
+                }
             }
         } else {
-            if (this->vertexFlag) {
-                this->vertexSet->push_back(line);
-            } else {
-                std::string *tokens = new std::string[3];
-                tokens = getTokens(line);
-                std::cout << tokens[0] << tokens[1] << tokens[2] << std::endl;
-                this->edgeSet->push_back(tokens);
-            }
+            //DISPARA ERRO LEXEMA INVALIDO
         }
     }
 }
@@ -76,9 +80,7 @@ std::string * Parser::getTokens(std::string line) {
     std::string *tokens = new std::string[3];
 
     for (i=0 ; i < sizeLine && tokenCounter < 3; ++i) {
-        if ((line.at(i) == ' ') && i==0) {
-            continue;
-        } else if (line.at(i) == ' ') {
+        if ((line.at(i) == ' ') && i!=0) {
             tokens[tokenCounter] = tmpString;
             tmpString = "";
             ++tokenCounter;
@@ -86,5 +88,6 @@ std::string * Parser::getTokens(std::string line) {
             tmpString += line.at(i);
         }
     }
+    tokens[tokenCounter] = tmpString;
     return tokens;
 }

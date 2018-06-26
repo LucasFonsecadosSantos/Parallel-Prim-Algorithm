@@ -1,10 +1,10 @@
 #include "../../include/dao/FileHandler.hpp"
 #include <fstream>
 #include <iostream>
-#include <stack>
+#include <vector>
 
 FileHandler::FileHandler(const char *fileName) {
-    this->buffer = new std::stack<std::string>();
+    this->buffer = new std::vector<std::string>();
     readFile(fileName);
 }
 
@@ -17,8 +17,8 @@ bool FileHandler::hasLine() {
 }
 
 std::string FileHandler::readLine() {
-    std::string line = this->buffer->top();
-    this->buffer->pop();
+    std::string line = this->buffer->front();
+    this->buffer->erase(this->buffer->begin());
     return line;
 }
 
@@ -30,8 +30,8 @@ void FileHandler::readFile(const char* fileName) {
             getline(this->inputFile, line);
             if(line == "") {
                 continue;
-            }else {
-            	this->buffer->push(line);
+            }else { 
+            	this->buffer->push_back(line);
             }
         }
     }
