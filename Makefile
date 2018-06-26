@@ -25,4 +25,4 @@ build/main: $(OBJECT_FILES)
 	g++ -g -c $^ -o $@
 
 clean_objects: $(OBJECT_FILES)
-rm $^
+	rm $^
