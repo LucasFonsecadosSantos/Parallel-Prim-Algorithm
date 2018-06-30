@@ -62,7 +62,6 @@ void Parser::populatesSet() {
                 } else {
                     std::string *tokens = new std::string[3];
                     tokens = getTokens(line);
-                    std::cout << tokens[0] << tokens[1] << tokens[2] << std::endl;
                     this->edgeSet->push_back(tokens);
                 }
             }
@@ -70,6 +69,7 @@ void Parser::populatesSet() {
             //DISPARA ERRO LEXEMA INVALIDO
         }
     }
+    this->edgeSet->pop_back();
 }
 
 std::string* Parser::getTokens(std::string line) {
