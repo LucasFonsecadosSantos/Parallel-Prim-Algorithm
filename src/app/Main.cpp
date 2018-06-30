@@ -16,5 +16,7 @@ int main(int argc, char *argv[]) {
 	Parser *parser = new Parser(new FileHandler(argv[1]));
 	Graph *graph = new Graph(parser->getVertexSet(), parser->getEdgeSet());
 	std::cout << graph->toString();
+	Prim *prim = new Prim(graph->getAdjacencyMatrix(), graph->getVertexSetCardinality());
+	prim->primExec();
 	return 0;
 }

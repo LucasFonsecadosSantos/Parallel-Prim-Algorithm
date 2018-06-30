@@ -35,12 +35,6 @@ void Graph::adjacencyMatrixPadding() {
         vVertex = mappingVertexToIndex(edgeTokens[1]);
         this->adjacencyMatrix->at(uVertex)[vVertex] = atoi(edgeTokens[2].c_str());
     }
-    for (int i=0;i<this->vertexSetCardinality;++i) {
-        for (int j=0;j<this->vertexSetCardinality;++j) {
-            std::cout << this->adjacencyMatrix->at(i)[j] << " ";
-        }
-        std::cout << std::endl;
-    }
 }
 
 void Graph::setVertexSet(std::vector<std::string> * vertexSet) {
@@ -65,6 +59,10 @@ void Graph::setVertexSetCardinality(int cardinality) {
 
 void Graph::setEdgeSetCardinality(int cardinality) {
     this->edgeSetCardinality = cardinality;
+}
+
+std::vector<int*> *Graph::getAdjacencyMatrix() {
+    return this->adjacencyMatrix;
 }
 
 int Graph::mappingVertexToIndex(std::string vertex) {
@@ -123,6 +121,6 @@ std::string Graph::toString() {
         }
         sstream << "];";
     }
-    sstream << "\n}";
+    sstream << "\n}\n";
     return sstream.str();
 }

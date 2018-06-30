@@ -9,10 +9,11 @@ class Graph {
 	public:
 		Graph(std::vector<std::string> *vertexSet, std::vector<std::string*> *edgeSet);
 		~Graph();
-		std::vector<int*> * getAdjacencyMatrix();
+		std::vector<int*> *getAdjacencyMatrix();
 		std::vector<std::string> * getVertexSet();
 		std::vector<std::string*> * getEdgeSet();
 		std::string toString();
+		int getVertexSetCardinality();
 
 	private:
 		int vertexSetCardinality;
@@ -26,7 +27,6 @@ class Graph {
 		void setEdgeSetCardinality(int cardinality);
 		void setVertexSetCardinality(int cardinality);
 		int getEdgeSetCardinality();
-		int getVertexSetCardinality();
 		int mappingVertexToIndex(std::string vertex);
 		std::string mappingIndexToVertex(int index);
 };
