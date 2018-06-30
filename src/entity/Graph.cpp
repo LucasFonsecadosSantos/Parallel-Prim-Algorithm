@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <limits.h>
+#include <sstream>
 
 Graph::Graph(std::vector<std::string> *vertexSet, std::vector<std::string*> *edgeSet) {
     this->adjacencyMatrix = NULL;
@@ -78,4 +79,50 @@ int Graph::mappingVertexToIndex(std::string vertex) {
 
 std::string Graph::mappingIndexToVertex(int index) {
     return this->vertexSet->at(index);
+}
+
+std::string Graph::toString() {
+    std::ostringstream sstream;
+    sstream << "";
+    sstream << "G=(V,E) {\n";
+    sstream << "\tV=[";
+    if (this->vertexSet != NULL && this->edgeSet != NULL && this->adjacencyMatrix != NULL) {
+        for (int i = 0 ; i < this->vertexSetCardinality ; ++i) {
+            sstream << this->vertexSet->at(i);
+            if (i+1 != this->vertexSetCardinality) {
+                sstream << ",";
+            } 
+        }
+        sstream <<"];\n\tE=[";
+        for (int i = 0 ; i < this->edgeSetCardinality ; ++i) {
+            std::string *edge = this->edgeSet->at(i);
+            sstream << "("+edge[0] + "," + edge[1] + "," + edge[2] + ")";
+            if (i+1 != this->edgeSetCardinality) {
+                sstream << ";";
+            }
+        }
+        sstream << "];\n\tW=[\n\t";
+        for (int i=0 ; i < this->vertexSetCardinality ; ++i) {
+            if (i==0) {
+                sstream << "\t";
+            }
+            sstream << "\t" << this->vertexSet->at(i) << " ";
+        }
+        sstream << "\n\t";
+        for (int i = 0 ; i < this->vertexSetCardinality ; ++i) {
+            sstream << "\t" << this->vertexSet->at(i) << "  ";
+            for (int j = 0 ; j < this->vertexSetCardinality; ++j) {
+                sstream << " ";
+                if (this->adjacencyMatrix->at(i)[j] == INT_MAX) {
+                    sstream << "\tinf";
+                } else {
+                    sstream << "\t" << this->adjacencyMatrix->at(i)[j];
+                }
+            }
+            sstream << "\n\t";
+        }
+        sstream << "];";
+    }
+    sstream << "\n}";
+    return sstream.str();
 }

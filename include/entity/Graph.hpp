@@ -12,6 +12,7 @@ class Graph {
 		std::vector<int*> * getAdjacencyMatrix();
 		std::vector<std::string> * getVertexSet();
 		std::vector<std::string*> * getEdgeSet();
+		std::string toString();
 
 	private:
 		int vertexSetCardinality;
