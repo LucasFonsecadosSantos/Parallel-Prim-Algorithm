@@ -9,7 +9,7 @@ class Gui {
         Gui();
         static void printSuceffullyMessage(std::string msg);
         static void printErrorMessage(std::string msg);
-        static void printLogMessage(std::string msg);
+        static void printLogMessage(std::string title,std::string msg);
     
     private:
 

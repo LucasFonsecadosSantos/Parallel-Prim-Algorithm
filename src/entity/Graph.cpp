@@ -37,6 +37,10 @@ void Graph::adjacencyMatrixPadding() {
     }
 }
 
+std::vector<std::string> * Graph::getVertexSet() {
+    return this->vertexSet;
+}
+
 void Graph::setVertexSet(std::vector<std::string> * vertexSet) {
     this->vertexSet = vertexSet;
 }
@@ -94,12 +98,12 @@ std::string Graph::toString() {
         sstream <<"];\n\tE=[";
         for (int i = 0 ; i < this->edgeSetCardinality ; ++i) {
             std::string *edge = this->edgeSet->at(i);
-            sstream << "("+edge[0] + "," + edge[1] + "," + edge[2] + ")";
+            sstream << "\n\t\t("+edge[0] + "," + edge[1] + "," + edge[2] + ")";
             if (i+1 != this->edgeSetCardinality) {
-                sstream << ";";
+                sstream << ",";
             }
         }
-        sstream << "];\n\tW=[\n\t";
+        sstream << "\n\t];\n\tW=[\n\t";
         for (int i=0 ; i < this->vertexSetCardinality ; ++i) {
             if (i==0) {
                 sstream << "\t";

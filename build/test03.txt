@@ -1,0 +1,45 @@
+::VERTEXES::
+A
+B
+C
+D
+E
+F
+G
+H
+I
+
+
+
+
+
+::EDGES::
+A B 4
+B A 4
+A H 8
+H A 8
+B C 8
+C B 8
+B H 11
+H B 11
+C D 7
+D C 7
+C F 4
+F C 4
+C I 2
+I C 2
+D E 9
+E D 9
+D F 14
+F D 14
+E F 10
+F E 10
+F G 2
+G F 2
+H G 1
+G H 1
+H I 7
+I H 7
+G I 6
+I G 6
+0 0 0

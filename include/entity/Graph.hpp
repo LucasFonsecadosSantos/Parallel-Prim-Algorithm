@@ -14,6 +14,8 @@ class Graph {
 		std::vector<std::string*> * getEdgeSet();
 		std::string toString();
 		int getVertexSetCardinality();
+		int mappingVertexToIndex(std::string vertex);
+		std::string mappingIndexToVertex(int index);
 
 	private:
 		int vertexSetCardinality;
@@ -27,8 +29,6 @@ class Graph {
 		void setEdgeSetCardinality(int cardinality);
 		void setVertexSetCardinality(int cardinality);
 		int getEdgeSetCardinality();
-		int mappingVertexToIndex(std::string vertex);
-		std::string mappingIndexToVertex(int index);
 };
 
 #endif

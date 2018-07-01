@@ -1,10 +1,14 @@
 #include "../../include/app/Prim.hpp"
+#include "../../include/entity/Graph.hpp"
 #include <stdio.h>
 #include <limits.h>
+#include <sstream>
 #include <iostream>
+#include <string>
 
-Prim::Prim(std::vector<int*> *weightMatrix, int cardinality) {
+Prim::Prim(std::vector<std::string> *vertexSet, std::vector<int*> *weightMatrix, int cardinality) {
     this->graph = updateWeightMatrix(weightMatrix);
+    this->vertexSet = vertexSet;
     this->parent = new int[cardinality]; // Array to store constructed MST
     this->key = new int[cardinality];   // Key values used to pick minimum weight edge in cut
     this->mstSet = new bool[cardinality];  // To represent set of vertices not yet included in MST
@@ -31,10 +35,13 @@ int Prim::minKey(int key[], bool mstSet[]) {
 }
  
 // A utility function to print the constructed MST stored in parent[]
-int Prim::printMST() {
-    printf("Edge   Weight\n");
-    for (int i = 1; i < this->vertexSetCardinality; i++)
-        printf("%d - %d    %d \n", this->parent[i], i, this->graph[i][this->parent[i]]);
+std::string Prim::printMST() {
+    std::ostringstream sstream;
+    sstream << "Edge   Weight\n";
+    for (int i = 1; i < this->vertexSetCardinality; i++) {
+        sstream  << this->vertexSet->at(this->parent[i]) << " - " << this->vertexSet->at(i) << "\t" << this->graph[i][this->parent[i]] << "\n";
+    }
+    return sstream.str();
 }
  
 // Function to construct and print MST for a graph represented using adjacency
@@ -68,7 +75,6 @@ void Prim::primExec() {
     
      // The MST will have V vertices
     for (int count = 0; count < this->vertexSetCardinality-1; count++) {
-        std::cout << "chegou aqui";
         // Pick the minimum key vertex from the set of vertices
         // not yet included in MST
         
@@ -86,9 +92,6 @@ void Prim::primExec() {
             // mstSet[v] is false for vertices not yet included in MST
             // Update the key only if graph[u][v] is smaller than key[v]
             if (graph[u][v] && this->mstSet[v] == false && graph[u][v] <  this->key[v])
-                this->parent[v]  = u, this->key[v] = graph[u][v];
-        
+                this->parent[v]  = u, this->key[v] = graph[u][v];   
     }
- 
-    // print the constructed MST
 }

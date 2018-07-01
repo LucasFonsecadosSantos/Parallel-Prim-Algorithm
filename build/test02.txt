@@ -1,14 +1,22 @@
+::VERTEXES::
+A
+B
+C
+D
+E
+F
+
+
+
+
 
 ::EDGES::
-K F 10
-F E 11
-T J 5
-K J 3
-
-::VERTEXES::
-K
-F
-S
-E
-T
-J
+A B 10
+B A 10
+A F 3
+F A 3
+B D 11
+D B 11
+E F 5
+F E 5
+0 0 0

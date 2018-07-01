@@ -2,6 +2,7 @@
 #include "../../include/util/Parser.hpp"
 #include "../../include/entity/Graph.hpp"
 #include "../../include/app/Prim.hpp"
+#include "../../include/view/Gui.hpp"
 #include <iostream>
 
 void checkParams(int paramAmount) {
@@ -14,10 +15,15 @@ int main(int argc, char *argv[]) {
 
 	checkParams(argc);
 	Parser *parser = new Parser(new FileHandler(argv[1]));
+	Gui::printSuceffullyMessage("File Inputed!");
+	Gui::printSuceffullyMessage("Paser Done!");
 	Graph *graph = new Graph(parser->getVertexSet(), parser->getEdgeSet());
-	std::cout << graph->toString();
-	Prim *prim = new Prim(graph->getAdjacencyMatrix(), graph->getVertexSetCardinality());
+	Gui::printSuceffullyMessage("Graph Done!");
+	Gui::printLogMessage("Graph G", graph->toString());
+	Prim *prim = new Prim(parser->getVertexSet(), graph->getAdjacencyMatrix(), graph->getVertexSetCardinality());
+	Gui::printLogMessage("EXECUTING","Prim algorithm.");
 	prim->primExec();
-	prim->printMST();
+	Gui::printSuceffullyMessage("Prim Algorithm Done!");
+	Gui::printLogMessage("MST", "\n"+prim->printMST());
 	return 0;
 }
