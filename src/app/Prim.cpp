@@ -5,6 +5,9 @@
 
 Prim::Prim(std::vector<int*> *weightMatrix, int cardinality) {
     this->graph = updateWeightMatrix(weightMatrix);
+    this->parent = new int[cardinality]; // Array to store constructed MST
+    this->key = new int[cardinality];   // Key values used to pick minimum weight edge in cut
+    this->mstSet = new bool[cardinality];  // To represent set of vertices not yet included in MST
     setVertexSetCardinality(cardinality);
 }
 
@@ -21,18 +24,18 @@ int Prim::minKey(int key[], bool mstSet[]) {
     int min = INT_MAX, min_index;
  
     for (int v = 0; v < this->vertexSetCardinality; v++)
-        if (mstSet[v] == false && key[v] < min)
-            min = key[v], min_index = v;
+        if (this->mstSet[v] == false && this->key[v] < min)
+            min = this->key[v], min_index = v;
  
     return min_index;
 }
  
 // A utility function to print the constructed MST stored in parent[]
-/*int Prim::printMST(int parent[], int n, int graph[V][V]) {
+int Prim::printMST() {
     printf("Edge   Weight\n");
-    for (int i = 1; i < V; i++)
-        printf("%d - %d    %d \n", parent[i], i, graph[i][parent[i]]);
-}*/
+    for (int i = 1; i < this->vertexSetCardinality; i++)
+        printf("%d - %d    %d \n", this->parent[i], i, this->graph[i][this->parent[i]]);
+}
  
 // Function to construct and print MST for a graph represented using adjacency
 // matrix representation
@@ -55,17 +58,13 @@ int **Prim::updateWeightMatrix(std::vector<int*> *weightMatrix) {
 
 void Prim::primExec() {
 
-    int parent[this->vertexSetCardinality]; // Array to store constructed MST
-    int key[this->vertexSetCardinality];   // Key values used to pick minimum weight edge in cut
-    bool mstSet[this->vertexSetCardinality];  // To represent set of vertices not yet included in MST
-    
      // Initialize all keys as INFINITE
     for (int i = 0; i < this->vertexSetCardinality; i++)
-        key[i] = INT_MAX, mstSet[i] = false;
+        this->key[i] = INT_MAX, this->mstSet[i] = false;
  
      // Always include first 1st vertex in MST.
-    key[0] = 0;     // Make key 0 so that this vertex is picked as first vertex
-    parent[0] = -1; // First node is always root of MST 
+    this->key[0] = 0;     // Make key 0 so that this vertex is picked as first vertex
+    this->parent[0] = -1; // First node is always root of MST 
     
      // The MST will have V vertices
     for (int count = 0; count < this->vertexSetCardinality-1; count++) {
@@ -75,9 +74,10 @@ void Prim::primExec() {
         
         int u = minKey(key, mstSet);
         // Add the picked vertex to the MST Set
-        std::cout << mstSet[u];
-        mstSet[u] = true; //PROBLEMA TA AQUI
-        /*
+        //std::cout << u;
+        //std::cout << std::endl << "u: " << u << mstSet[u] << " " <<  (sizeof (mstSet) / sizeof (bool));
+        this->mstSet[u] = true; //PROBLEMA TA AQUI
+        
         // Update key value and parent index of the adjacent vertices of
         // the picked vertex. Consider only those vertices which are not yet
         // included in MST
@@ -85,10 +85,10 @@ void Prim::primExec() {
             // graph[u][v] is non zero only for adjacent vertices of m
             // mstSet[v] is false for vertices not yet included in MST
             // Update the key only if graph[u][v] is smaller than key[v]
-            if (graph[u][v] && mstSet[v] == false && graph[u][v] <  key[v])
-                parent[v]  = u, key[v] = graph[u][v];*/
+            if (graph[u][v] && this->mstSet[v] == false && graph[u][v] <  this->key[v])
+                this->parent[v]  = u, this->key[v] = graph[u][v];
+        
     }
  
     // print the constructed MST
-    //printMST(parent, V, graph);
 }

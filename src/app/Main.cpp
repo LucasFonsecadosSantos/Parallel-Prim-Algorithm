@@ -18,5 +18,6 @@ int main(int argc, char *argv[]) {
 	std::cout << graph->toString();
 	Prim *prim = new Prim(graph->getAdjacencyMatrix(), graph->getVertexSetCardinality());
 	prim->primExec();
+	prim->printMST();
 	return 0;
 }
