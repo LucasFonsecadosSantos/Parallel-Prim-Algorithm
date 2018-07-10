@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include "mpi.h"
 
 Prim::Prim(std::vector<std::string> *vertexSet, std::vector<int*> *weightMatrix, int cardinality) {
     this->graph = updateWeightMatrix(weightMatrix);
@@ -63,7 +64,15 @@ int **Prim::updateWeightMatrix(std::vector<int*> *weightMatrix) {
     return updatedWeightMatrix;
 }
 
-void Prim::primExec() {
+void Prim::primExec(int argc, char *argv[]) {
+    MPI_Status Stat;
+    int numtasks, rank;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int result[this->vertexSetCardinality];
+    int u = 0;
+    int global = 0;
 
      // Initialize all keys as INFINITE
     for (int i = 0; i < this->vertexSetCardinality; i++)
@@ -79,6 +88,9 @@ void Prim::primExec() {
         // not yet included in MST
         
         int u = minKey(key, mstSet);
+        MPI_Allreduce(&u, &global, 1, MPI_INT, MPI_MIN,MPI_COMM_WORLD);
+        std::cout << "GLOBAL: " << global << " " << rank;
+
         // Add the picked vertex to the MST Set
         //std::cout << u;
         //std::cout << std::endl << "u: " << u << mstSet[u] << " " <<  (sizeof (mstSet) / sizeof (bool));
@@ -87,6 +99,8 @@ void Prim::primExec() {
         // Update key value and parent index of the adjacent vertices of
         // the picked vertex. Consider only those vertices which are not yet
         // included in MST
+        // MPI_Scatter(&graph, this->vertexSetCardinality/numtasks, MPI_INT, &u, this->vertexSetCardinality/numtasks, MPI_INT, 0,
+        //       MPI_COMM_WORLD);
         for (int v = 0; v < this->vertexSetCardinality; v++)
             // graph[u][v] is non zero only for adjacent vertices of m
             // mstSet[v] is false for vertices not yet included in MST
@@ -94,4 +108,11 @@ void Prim::primExec() {
             if (graph[u][v] && this->mstSet[v] == false && graph[u][v] <  this->key[v])
                 this->parent[v]  = u, this->key[v] = graph[u][v];   
     }
+    MPI_Finalize();
+    // MPI_Gather(&u,1, MPI_INT, &graph, 1, MPI_INT, 0, MPI_COMM_WORLD); 
+    // if(rank == 0){
+    //     for(int i=0;i<this->vertexSetCardinality;i++){
+    //         std:: cout<< result[i];
+    //     }
+    // }  
 }

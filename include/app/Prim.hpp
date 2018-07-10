@@ -10,7 +10,7 @@ class Prim {
 	public:
 		Prim(std::vector<std::string> *vertexSet, std::vector<int*> *weightMatrix, int cardinality);
 		~Prim();
-        void primExec();
+        void primExec(int argc, char *argv[]);
 		std::string printMST();
 
 	private:

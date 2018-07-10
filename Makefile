@@ -19,10 +19,13 @@ build:
 	mkdir -p build
 
 build/main: $(OBJECT_FILES)
-	g++ -g $^ -std=c++11 -o $@
+	mpic++  $^ -std=c++11 -o $@
 
 %.o: %.cpp
-	g++ -g -std=c++11 -c $^ -o $@
+	mpic++  -std=c++11 -c $^ -o $@
+
+prim.o: prim.cpp
+	mpic++ $(CFLAGS) $^ -I$(LOCAL_INC_PATH)
 
 clean_objects: $(OBJECT_FILES)
 	rm $^
